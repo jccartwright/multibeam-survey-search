@@ -20,6 +20,13 @@ angular.module('multibeamApp').controller('MainCtrl', ['$scope', function ($scop
   $scope.popup1 = {
     opened: false
   };
+
+  $scope.open2 = function() { 
+      $scope.popup2.opened = true;
+  };
+  $scope.popup2 = {
+    opened: false
+  };
   
   /*
   //TODO set based on min/max dates in data
