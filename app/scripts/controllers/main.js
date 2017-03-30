@@ -7,12 +7,26 @@
  * # MainCtrl
  * Controller of the multibeamApp
  */
-angular.module('multibeamApp').controller('MainCtrl', ['$scope', function ($scope) {
+angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+
+    $scope.getLocation = function(val) {
+    return $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/surveyids.groovy', {
+      params: {
+        id: val
+      }
+    }).then(function(response){
+      return response.data;
+      // return response.data.results.map(function(item){
+      //   return item.formatted_address;
+      // });
+    });
+  };
 
   $scope.open1 = function() { 
       $scope.popup1.opened = true;
