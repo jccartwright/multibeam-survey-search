@@ -9,6 +9,7 @@
         uib-typeahead="survey for survey in getSurveyNames($viewValue)" 
         typeahead-loading="loadingSurveys" 
         typeahead-no-results="noSurveyResults"
+        typeahead-on-select="surveySelectHandler()"
         class="form-control">
       <i ng-show="loadingSurveys" class="glyphicon glyphicon-refresh"></i>
       <div ng-show="noSurveyResults">
@@ -74,13 +75,13 @@
     </p>
 
     <div id="BtnRow" class="row">
-    <input id="resetBtn" class="btn btn-default pull-left" type="button" value="Reset">
+    <input id="resetBtn" class="btn btn-default pull-left" ng-click="resetBtnHandler()" type="button" value="Reset">
     <input id="getDataBtn" class="btn btn-primary active pull-right" ng-click="getDataBtnHandler()" type="button" value="Get Data">
 
     </div>
   </div>  <!-- end control panel -->
 
   <div class="col-md-9" id="resultsPanel">
-    <div ui-grid="{ data: myData }" class="myGrid"></div>
+    <div ui-grid="gridOptions" class="myGrid"></div>
   </div>  
 </div>

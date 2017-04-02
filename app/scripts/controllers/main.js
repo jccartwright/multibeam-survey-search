@@ -42,31 +42,19 @@ angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', '$http
     });
 
     $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/startdates.groovy').then(function(response){
-      var min = response.data[0].MIN.split('-');
-      var max = response.data[0].MAX.split('-');
-      //month is 0-based in JS
-      min[1]--;
-      max[1]--;
-
+      //expects string in format of YYYY-MM-DDTHH:MM:SSZ
       $scope.startDateOptions = {
-        minDate: new Date(min[0], min[1], min[2]),
-        maxDate: new Date(max[0], max[1], max[2])
-      };
+        minDate: new Date(response.data[0].MIN),
+        maxDate: new Date(response.data[0].MAX)
+      };      
     });
 
     $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/enddates.groovy').then(function(response){
-      var min = response.data[0].MIN.split('-');
-      var max = response.data[0].MAX.split('-');
-      
-      //month is 0-based in JS
-      min[1]--;
-      max[1]--;
-      
-      //Chrome allows array in constructor but Safari does not
+      //expects string in format of YYYY-MM-DDTHH:MM:SSZ
       $scope.endDateOptions = {
-        minDate: new Date(min[0], min[1], min[2]),
-        maxDate: new Date(max[0], max[1], max[2])
-      };
+        minDate: new Date(response.data[0].MIN),
+        maxDate: new Date(response.data[0].MAX)
+      };      
     });
 
     $scope.getSurveyNames = function(val) {
@@ -121,52 +109,78 @@ angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', '$http
   
   $scope.surveySelectHandler = function(item) {
     console.log('inside surveySelectHandler');
-    $scope.selectedValues.survey = item;
+    //$scope.selectedValues.survey = item;
     //console.log(selectedValues);
     //console.log(item);
+    $scope.getDataBtnHandler();
   };
 
   $scope.getDataBtnHandler = function() {
     console.log('inside getDataBtnHandler...');
+    console.log($scope.selectedValues);
     $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/surveyattributes.groovy', {
       params: $scope.selectedValues
     }).then(function(response){
-      $scope.myData = response.data;
+      //$scope.myData = response.data;
+      $scope.gridOptions.data = response.data;
     });
   };
+
+  $scope.resetBtnHandler = function() {
+    $scope.selectedValues = {};
+    //$scope.myData = [];
+    $scope.gridOptions.data = [];
+
+  };
+
+  $scope.gridOptions = {
+    columnDefs: [
+      { 
+        displayName: "Id",
+        field: "NGDC_ID"
+      },
+      {
+        displayName: "Scientist(s)",
+        field: "CHIEF_SCIENTIST",
+      },
+      {
+        displayName: "Departure",
+        field: "DEPARTURE_PORT",
+      },
+      {
+        displayName: "Arrival",
+        field: "ARRIVAL_PORT",
+      },
+      {
+        displayName: "Start",
+        field: "START_DATE",
+      },
+      {
+        displayName: "End",
+        field: "END_DATE",
+      },
+      {
+        displayName: "Survey",
+        field: "SURVEY_NAME",
+      },
+      {
+        displayName: "Ship",
+        field: "SHIP_NAME",
+      },
+      {
+        displayName: "Source",
+        field: "SOURCE",
+      },      
+      {
+        displayName: "Instrument",
+        field: "INSTRUMENT",
+      }
+    ]
+  };
+
 /*
-  $scope.myData = [
-{
-'Survey Name': '09CQ01_Saipan',
-'Platform':	'Swamp Fox',
-'Source': 'US Navy',
-'Chief Scientist': 'Baptise, Charles',
-'Instrument':	'Reson SeaBat 7125',
-'Depature Port': null,
-'Arrival Port': null,
-'Start Date': '2009-06-12',
-'End Date':	'2009-06-22'
-}, {
-'Survey Name': '09CQ02_Tinian',
-'Platform':	'Swamp Fox',
-'Source': 'US Navy',
-'Chief Scientist': 'Baptise, Charles',
-'Instrument':	'Reson SeaBat 7125',
-'Depature Port': null,
-'Arrival Port': null,
-'Start Date': '2009-06-18',
-'End Date':	'2009-06-18'
-}, {
-'Survey Name': '18-cruise',
-'Platform':	'Boris Petrov',
-'Source': 'Russia',
-'Chief Scientist': 'Unknown',
-'Instrument':	'Unknown',
-'Depature Port': 'Unknown',
-'Arrival Port': 'Unknown',
-'Start Date': '1991-07-04',
-'End Date':	'1991-09-01'
-}
-];
-*/
+  $scope.gridOptions.data = [
+    {"NGDC_ID":"NEW2528","CHIEF_SCIENTIST":"Kennedy, Brian","DEPARTURE_PORT":"Honolulu, HI","ARRIVAL_PORT":"Honolulu, HI","START_DATE":"2016-12-01","END_DATE":"2016-12-08","SURVEY_NAME":"EX1608","SHIP_NAME":"Okeanos Explorer","SOURCE":"NOAA Office of Ocean Exploration and Research (OER)","INSTRUMENT":"Kongsberg EM302","DOWNLOAD_URL":"https://www.ngdc.noaa.gov/ships/okeanos_explorer/EX1608_mb.html"},
+    {"NGDC_ID":"NEW2529","CHIEF_SCIENTIST":"Sowers, Derek","DEPARTURE_PORT":"Honolulu, HI","ARRIVAL_PORT":"Honolulu, HI","START_DATE":"2016-12-10","END_DATE":"2016-12-16","SURVEY_NAME":"EX1609","SHIP_NAME":"Okeanos Explorer","SOURCE":"NOAA Office of Ocean Exploration and Research (OER)","INSTRUMENT":"Kongsberg EM302","DOWNLOAD_URL":"https://www.ngdc.noaa.gov/ships/okeanos_explorer/EX1609_mb.html"}]
+*/   
   }]);
