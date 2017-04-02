@@ -1,49 +1,62 @@
 <div class="row">
   <div class="col-md-3" id="controlPanel">
-    <h4>Asynchronous results</h4>
-    <pre>Model: {{asyncSelected | json}}</pre>
-    <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
-    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-    <div ng-show="noResults">
-      <i class="glyphicon glyphicon-remove"></i> No Results Found
+
+
+    <div>
+      <h4>Survey</h4>
+      <input type="text" ng-model="selectedValues.survey_name" 
+        placeholder="enter a survey name" 
+        uib-typeahead="survey for survey in getSurveyNames($viewValue)" 
+        typeahead-loading="loadingSurveys" 
+        typeahead-no-results="noSurveyResults"
+        class="form-control">
+      <i ng-show="loadingSurveys" class="glyphicon glyphicon-refresh"></i>
+      <div ng-show="noSurveyResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>      
     </div>
 
-
-    <h4>Survey Name</h4>
-    <!--<pre>Model: {{selected | json}}</pre>-->
-    <input type="text" ng-model="selectedSurvey" 
-      uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" 
-      class="form-control">
-
-    <h4>Ship Name</h4>
-    <input type="text" ng-model="selectedShip" 
-      uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" 
+    <h4>Ship</h4>
+    <input type="text" ng-model="selectedValues.ship_name"
+      placeholder="enter a ship name"
+      uib-typeahead="ship for ship in platforms | filter:$viewValue | limitTo:8" 
       class="form-control">
 
     <h4>Source</h4>
-    <input type="text" ng-model="selectedSource" 
-      uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" 
+    <input type="text" ng-model="selectedValues.ship_source" 
+      placeholder="enter a source name"
+      uib-typeahead="source for source in sources | filter:$viewValue | limitTo:8" 
       class="form-control">
 
+    <h4>Instrument</h4>
+    <input type="text" ng-model="selectedValues.instrument"
+      placeholder="enter an instrument name"
+      uib-typeahead="instrument for instrument in instruments | filter:$viewValue | limitTo:8" 
+      class="form-control">
+
+
     <h4>Chief Scientist</h4>
-    <input type="text" ng-model="selectedChiefScientist" 
-      uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" 
+    <input type="text" ng-model="selectedValues.chief_scientist" 
+      placeholder="enter a scientist name"
+      uib-typeahead="scientist for scientist in chiefScientists | filter:$viewValue | limitTo:8" 
       class="form-control">
 
     <h4>Departure Port</h4>
-    <input type="text" ng-model="selectedDeparturePort" 
-      uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" 
+    <input type="text" ng-model="selectedValues.departure_port" 
+      placeholder="enter a port name"
+      uib-typeahead="port for port in departurePorts | filter:$viewValue | limitTo:8" 
       class="form-control">
 
     <h4>Arrival Port</h4>
-    <input type="text" ng-model="selectedArrivalPort" 
-      uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" 
+    <input type="text" ng-model="selectedValues.arrival_port"
+      placeholder="enter a port name" 
+      uib-typeahead="port for port in arrivalPorts | filter:$viewValue | limitTo:8" 
       class="form-control">
 
     <h4>Start Date</h4>
     <p class="input-group">
       <input type="text" class="form-control" uib-datepicker-popup="{{format}}" 
-      ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" 
+      ng-model="selectedValues.start_date" is-open="popup1.opened" datepicker-options="startDateOptions" 
       ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -53,7 +66,7 @@
     <h4>End Date</h4>
     <p class="input-group">
       <input type="text" class="form-control" uib-datepicker-popup="{{format}}" 
-      ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" 
+      ng-model="selectedValues.end_date" is-open="popup2.opened" datepicker-options="endDateOptions" 
       ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -62,7 +75,7 @@
 
     <div id="BtnRow" class="row">
     <input id="resetBtn" class="btn btn-default pull-left" type="button" value="Reset">
-    <input id="getDataBtn" class="btn btn-primary active pull-right" type="button" value="Get Data">
+    <input id="getDataBtn" class="btn btn-primary active pull-right" ng-click="getDataBtnHandler()" type="button" value="Get Data">
 
     </div>
   </div>  <!-- end control panel -->

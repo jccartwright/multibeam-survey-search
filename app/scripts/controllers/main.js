@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the multibeamApp
  */
-angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', '$httpParamSerializer', function ($scope, $http, $httpParamSerializer) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -15,18 +15,71 @@ angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', functi
     ];
 
 
-    $scope.getLocation = function(val) {
-    return $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/surveyids.groovy', {
-      params: {
-        id: val
-      }
-    }).then(function(response){
-      return response.data;
-      // return response.data.results.map(function(item){
-      //   return item.formatted_address;
-      // });
+    
+    
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/instruments.groovy').then(function(response){
+      $scope.instruments = response.data;
     });
-  };
+
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/platforms.groovy').then(function(response){
+      $scope.platforms = response.data;
+    });
+
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/sources.groovy').then(function(response){
+      $scope.sources = response.data;
+    });
+
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/departureports.groovy').then(function(response){
+      $scope.departurePorts = response.data;
+    });
+
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/arrivalports.groovy').then(function(response){
+      $scope.arrivalPorts = response.data;
+    });
+
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/chiefscientists.groovy').then(function(response){
+      $scope.chiefScientists = response.data;
+    });
+
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/startdates.groovy').then(function(response){
+      var min = response.data[0].MIN.split('-');
+      var max = response.data[0].MAX.split('-');
+      //month is 0-based in JS
+      min[1]--;
+      max[1]--;
+
+      $scope.startDateOptions = {
+        minDate: new Date(min[0], min[1], min[2]),
+        maxDate: new Date(max[0], max[1], max[2])
+      };
+    });
+
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/enddates.groovy').then(function(response){
+      var min = response.data[0].MIN.split('-');
+      var max = response.data[0].MAX.split('-');
+      
+      //month is 0-based in JS
+      min[1]--;
+      max[1]--;
+      
+      //Chrome allows array in constructor but Safari does not
+      $scope.endDateOptions = {
+        minDate: new Date(min[0], min[1], min[2]),
+        maxDate: new Date(max[0], max[1], max[2])
+      };
+    });
+
+    $scope.getSurveyNames = function(val) {
+      return $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/surveynames.groovy', {
+        params: {
+          name: val.toUpperCase()
+        }
+      }).then(function(response){
+        return response.data;
+      });
+    };
+
+    
 
   $scope.open1 = function() { 
       $scope.popup1.opened = true;
@@ -42,14 +95,46 @@ angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', functi
     opened: false
   };
   
-  /*
-  //TODO set based on min/max dates in data
-  $scope.dateOptions = {
-    minDate: new Date(),
-    maxDate: new Date()
+  $scope.selectedValues = {
+    survey_name: null,
+    ship_name: null,
+    ship_source: null,
+    instrument: null,
+    chief_scientist: null,
+    departure_port: null,
+    arrival_port: null,
+    start_date: null,
+    end_date: null
   };
-  */
 
+  $scope.$watchCollection("selectedValues", function() {
+    console.log($httpParamSerializer($scope.selectedValues));
+    //TODO change style of "Get Data" button?
+  });
+  /*
+  $scope.$watchGroup(["selectedSurvey", "selectedShip", "selectedSource", 
+    "selectedInstrument", "selectedChiefScientist", "selectedDeparturePort",
+    "selectedArrivalPort", "selectedStartDate", "selectedEndDate"], function(newValue, oldValue) {
+      console.log(newValue);
+  });
+*/
+  
+  $scope.surveySelectHandler = function(item) {
+    console.log('inside surveySelectHandler');
+    $scope.selectedValues.survey = item;
+    //console.log(selectedValues);
+    //console.log(item);
+  };
+
+  $scope.getDataBtnHandler = function() {
+    console.log('inside getDataBtnHandler...');
+    $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/surveyattributes.groovy', {
+      params: $scope.selectedValues
+    }).then(function(response){
+      $scope.myData = response.data;
+    });
+  };
+/*
   $scope.myData = [
 {
 'Survey Name': '09CQ01_Saipan',
@@ -83,5 +168,5 @@ angular.module('multibeamApp').controller('MainCtrl', ['$scope', '$http', functi
 'End Date':	'1991-09-01'
 }
 ];
-
+*/
   }]);
