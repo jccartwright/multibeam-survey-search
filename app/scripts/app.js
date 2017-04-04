@@ -8,8 +8,7 @@
  *
  * Main module of the application.
  */
-angular
-  .module('multibeamApp', [
+var multibeamApp = angular.module('multibeamApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -18,14 +17,21 @@ angular
     'ngTouch',
     'ui.grid',
     'ui.bootstrap'
-  ])
-  .config(function ($routeProvider) {
+  ]);
+
+  multibeamApp.config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/grid_results.html',
+        controller: 'GridResultsCtrl',
+        controllerAs: 'grid'
       })
+      .when('/html', {
+        templateUrl: 'views/html_results.html',
+        controller: 'HtmlResultsCtrl',
+        controllerAs: 'html'
+      })
+
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',

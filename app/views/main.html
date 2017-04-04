@@ -1,7 +1,4 @@
-<div class="row">
   <div class="col-md-3" id="controlPanel">
-
-
     <div>
       <h4>Survey</h4>
       <input type="text" ng-model="selectedValues.survey_name" 
@@ -75,13 +72,12 @@
     </p>
 
     <div id="BtnRow" class="row">
-    <input id="resetBtn" class="btn btn-default pull-left" ng-click="resetBtnHandler()" type="button" value="Reset">
-    <input id="getDataBtn" class="btn btn-primary active pull-right" ng-click="getDataBtnHandler()" type="button" value="Get Data">
-
+      <input id="resetBtn" class="btn btn-default pull-left" ng-click="resetBtnHandler()" type="button" value="Reset">
+      <input id="getDataBtn" class="btn btn-primary active pull-right" ng-click="getDataBtnHandler()" type="button" value="Get Data">
     </div>
   </div>  <!-- end control panel -->
 
   <div class="col-md-9" id="resultsPanel">
     <div ui-grid="gridOptions" class="myGrid"></div>
   </div>  
-</div>
+</div>  <!-- end row -->
