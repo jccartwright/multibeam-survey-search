@@ -1,3 +1,26 @@
 <div class="col-md-9" id="resultsPanel">
-    <h1>html results</h1>    
+    <table align="center" width="95%" border="1" bgcolor="#ffffff" cellpadding="3" cellspacing="0">
+    <tr bgcolor="#ddddee">
+        <td><b><span class=medblue>Survey Name</span></b></td>
+        <td><b><span class=medblue>Platform</span></b></td>
+        <td><b><span class=medblue>Source</span></b></td>
+        <td><b><span class=medblue>Chief Scientist</span></b></td>
+        <td><b><span class=medblue>Instrument</span></b></td>
+        <td><b><span class=medblue>Departure Port</span></b></td>
+        <td><b><span class=medblue>Arrival Port</span></b></td>
+        <td><b><span class=medblue>Start Date</span></b></td>
+        <td><b><span class=medblue>End Date</span></b></td>
+    </tr>
+    <tr ng-repeat="survey in data">
+        <td>{{survey.SURVEY_NAME}}</td>
+        <td>{{survey.SHIP_NAME}}</td>
+        <td>{{survey.SOURCE}}</td>
+        <td>{{survey.CHIEF_SCIENTIST}}</td>
+        <td>{{survey.INSTRUMENT}}</td>
+        <td>{{survey.DEPARTURE_PORT}}</td>
+        <td>{{survey.ARRIVAL_PORT}}</td>
+        <td>{{survey.START_DATE}}</td>
+        <td>{{survey.END_DATE}}</td>
+    </tr>
+    </table>
 </div>  

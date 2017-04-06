@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name multibeamApp.controller:ControlPanelCtrl
+ * @name multibeamApp.controller:GridResultsCtrl
  * @description
- * # ControlPanelCtrl
+ * # GridResultsCtrl
  * Controller of the multibeamApp
  */
 angular.module('multibeamApp').controller('GridResultsCtrl', ['$scope', 'repository', function ($scope, repository) {
