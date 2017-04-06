@@ -12,7 +12,7 @@
         <td><b><span class=medblue>End Date</span></b></td>
     </tr>
     <tr ng-repeat="survey in data">
-        <td>{{survey.SURVEY_NAME}}</td>
+        <td><a href="{{survey.DOWNLOAD_URL}}" target="_blank">{{survey.SURVEY_NAME}}</a></td>
         <td>{{survey.SHIP_NAME}}</td>
         <td>{{survey.SOURCE}}</td>
         <td>{{survey.CHIEF_SCIENTIST}}</td>
@@ -24,3 +24,5 @@
     </tr>
     </table>
 </div>  
+
+<a ng-href="{{myVar}}">{{myVar}}</a>
