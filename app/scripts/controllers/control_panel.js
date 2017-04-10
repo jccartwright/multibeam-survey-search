@@ -10,16 +10,28 @@
 angular.module('multibeamApp').controller('ControlPanelCtrl', ['$scope', '$http', '$location', 'repository', function ($scope, $http, $location, repository) {
   $scope.repository = repository;
 
-  $scope.switchViewBtnHandler = function(e) {
-    console.log($location.path());
-    if (e.currentTarget.value === 'HTML view') {
-      e.currentTarget.value = 'Grid view';
-      $location.path('/html');
-    } else {
-      e.currentTarget.value = 'HTML view';
-      $location.path('/grid');
-    }
+  var viewMode;
+  if ($location.path() === '/html') {
+    viewMode = 'html';
+    $scope.toggleViewBtnLabel = 'switch to Grid view';
+  } else {
+    viewMode = 'grid';
+    $scope.toggleViewBtnLabel = 'switch to HTML view';
+  }
 
+  $scope.toggleView = function() {
+    if (viewMode === 'grid') {
+      viewMode = 'html';
+      $scope.switchViewBtnLabel = 'switch to Grid view';
+      $location.path('/html');
+    } else if (viewMode === 'html') {
+      viewMode = 'grid';
+      $scope.switchViewBtnLabel = 'switch to HTML view';
+      $location.path('/');
+
+    } else {
+      console.error('unexpected viewMode');
+    }
   };
 
 /*
