@@ -7,8 +7,20 @@
  * # ControlPanelCtrl
  * Controller of the multibeamApp
  */
-angular.module('multibeamApp').controller('ControlPanelCtrl', ['$scope', '$http', '$httpParamSerializer', 'repository', function ($scope, $http, $httpParamSerializer, repository) {
+angular.module('multibeamApp').controller('ControlPanelCtrl', ['$scope', '$http', '$location', 'repository', function ($scope, $http, $location, repository) {
   $scope.repository = repository;
+
+  $scope.switchViewBtnHandler = function(e) {
+    console.log($location.path());
+    if (e.currentTarget.value === 'HTML view') {
+      e.currentTarget.value = 'Grid view';
+      $location.path('/html');
+    } else {
+      e.currentTarget.value = 'HTML view';
+      $location.path('/grid');
+    }
+
+  };
 
 /*
     //syntax required to get async results from service.  in practice, by the 
