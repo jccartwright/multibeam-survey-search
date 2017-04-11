@@ -22,11 +22,11 @@ angular.module('multibeamApp').controller('ControlPanelCtrl', ['$scope', '$http'
   $scope.toggleView = function() {
     if (viewMode === 'grid') {
       viewMode = 'html';
-      $scope.switchViewBtnLabel = 'switch to Grid view';
+      $scope.toggleViewBtnLabel = 'switch to Grid view';
       $location.path('/html');
     } else if (viewMode === 'html') {
       viewMode = 'grid';
-      $scope.switchViewBtnLabel = 'switch to HTML view';
+      $scope.toggleViewBtnLabel = 'switch to HTML view';
       $location.path('/');
 
     } else {
