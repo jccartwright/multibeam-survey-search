@@ -5,15 +5,10 @@ angular.module('multibeamApp').service('repository', ['$http', function($http) {
     this.selectedValues = {};
     this.gridOptions = {};
 
-    this.getData = function() {
-      console.log('inside getData...');
-      console.log(self.selectedValues.end);
-      
+    this.getData = function() {      
       $http.get('https://maps.ngdc.noaa.gov/mapviewer-support/multibeam/surveyattributes.groovy', {
         params: self.selectedValues
       }).then(function(response){
-        console.log(response.data);
-        //$scope.myData = response.data;
         self.data = response.data;
        });
     };
@@ -68,6 +63,4 @@ angular.module('multibeamApp').service('repository', ['$http', function($http) {
         maxDate: new Date(response.data[0].MAX)
       };
     });
-
-
 }]);

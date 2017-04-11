@@ -70,7 +70,6 @@ angular.module('multibeamApp').controller('ControlPanelCtrl', ['$scope', '$http'
   };
     
   $scope.surveySelectHandler = function() {
-    console.log('inside surveySelectHandler');
     $scope.repository.getData();
   };
 
