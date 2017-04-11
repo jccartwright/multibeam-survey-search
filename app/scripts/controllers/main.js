@@ -8,13 +8,12 @@
  * Controller of the multibeamApp
  */
 angular.module('multibeamApp').controller('MainCtrl', ['$scope', function ($scope) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  this.awesomeThings = [
+    'HTML5 Boilerplate',
+    'AngularJS',
+    'Karma'
+  ];
     
-
   $scope.gridOptions = {
     columnDefs: [
       { 
