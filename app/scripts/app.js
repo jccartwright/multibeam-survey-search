@@ -16,7 +16,8 @@ var multibeamApp = angular.module('multibeamApp', [
     'ngSanitize',
     'ngTouch',
     'ui.grid',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.select'
   ]);
 
   multibeamApp.config(function ($routeProvider) {

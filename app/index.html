@@ -10,6 +10,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -69,32 +70,47 @@
                 <h4>Ship</h4>
                 <input type="text" ng-model="repository.selectedValues.ship" class="form-control"
                 placeholder="enter a ship name" typeahead-on-select="surveySelectHandler()"
-                uib-typeahead="ship for ship in repository.platforms | filter:$viewValue | limitTo:8" >
+                uib-typeahead="ship for ship in repository.platforms | filter:$viewValue | limitTo:20" >
 
                 <h4>Source</h4>
-                <input type="text" ng-model="repository.selectedValues.source" class="form-control"
+                <!--<input type="text" ng-model="repository.selectedValues.source" class="form-control"
                 placeholder="enter a source name" typeahead-on-select="surveySelectHandler()"
-                uib-typeahead="source for source in repository.sources | filter:$viewValue | limitTo:8" >
+                uib-typeahead="source for source in repository.sources | filter:$viewValue | limitTo:8" >-->
+                <select ng-model="repository.selectedValues.source" class="form-control" ng-options="source for source in repository.sources" ng-change="surveySelectHandler()"></select>
 
                 <h4>Instrument</h4>
-                <input type="text" ng-model="repository.selectedValues.instrument" class="form-control"
+                <!--<input type="text" ng-model="repository.selectedValues.instrument" class="form-control"
                 placeholder="enter an instrument name" typeahead-on-select="surveySelectHandler()"
-                uib-typeahead="instrument for instrument in repository.instruments | filter:$viewValue | limitTo:8" >
+                uib-typeahead="instrument for instrument in repository.instruments | filter:$viewValue | limitTo:8" >-->
+
+                <select ng-model="repository.selectedValues.instrument" class="form-control" ng-options="instrument for instrument in repository.instruments" ng-change="surveySelectHandler()"></select>
+
+                <!--<ui-select ng-model="repository.selectedValues.instrument"
+                    theme="bootstrap"
+                    reset-search-input="false"
+                    style="width: 600px;"
+                    title="Choose an instrument">
+                    <ui-select-match placeholder="Choose an instrument...">{{repository.instruments}}</ui-select-match>
+                    <ui-select-choices repeat="instrument in repository.instruments track by $index"
+                    refresh="repository.instruments($select.search)" refresh-delay="0">
+                        <div ng-bind-html="repository.instruments | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>-->
 
                 <h4>Chief Scientist</h4>
                 <input type="text" ng-model="repository.selectedValues.scientist" class="form-control"
                 placeholder="enter a scientist name" typeahead-on-select="surveySelectHandler()"
-                uib-typeahead="scientist for scientist in repository.chiefScientists | filter:$viewValue | limitTo:8">
+                uib-typeahead="scientist for scientist in repository.chiefScientists | filter:$viewValue | limitTo:20">
 
                 <h4>Departure Port</h4>
                 <input type="text" ng-model="repository.selectedValues.departure" class="form-control"
                 placeholder="enter a port name" typeahead-on-select="surveySelectHandler()"
-                uib-typeahead="port for port in repository.departurePorts | filter:$viewValue | limitTo:8" >
+                uib-typeahead="port for port in repository.departurePorts | filter:$viewValue | limitTo:20" >
 
                 <h4>Arrival Port</h4>
                 <input type="text" ng-model="repository.selectedValues.arrival" class="form-control"
                 placeholder="enter a port name" typeahead-on-select="surveySelectHandler()"
-                uib-typeahead="port for port in repository.arrivalPorts | filter:$viewValue | limitTo:8" >
+                uib-typeahead="port for port in repository.arrivalPorts | filter:$viewValue | limitTo:20" >
 
                 <h4>Start Date</h4>
                 <p class="input-group">
@@ -157,6 +173,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+    <script src="bower_components/angular-ui-select/dist/select.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
