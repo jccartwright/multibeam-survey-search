@@ -1,5 +1,5 @@
 {
-  "name": "multibeam",
+  "name": "multibeam-survey-search",
   "private": true,
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
