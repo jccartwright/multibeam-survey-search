@@ -13,10 +13,10 @@ angular.module('multibeamApp').controller('GridResultsCtrl', ['$scope', 'reposit
 
   $scope.gridOptions = {
     columnDefs: [
-      { 
-        displayName: 'Id',
-        field: 'NGDC_ID'
-      },
+      {
+        displayName: 'Survey',
+        field: 'SURVEY_NAME',
+      },      
       {
         displayName: 'Scientist(s)',
         field: 'CHIEF_SCIENTIST',
@@ -36,10 +36,6 @@ angular.module('multibeamApp').controller('GridResultsCtrl', ['$scope', 'reposit
       {
         displayName: 'End',
         field: 'END_DATE',
-      },
-      {
-        displayName: 'Survey',
-        field: 'SURVEY_NAME',
       },
       {
         displayName: 'Ship',
