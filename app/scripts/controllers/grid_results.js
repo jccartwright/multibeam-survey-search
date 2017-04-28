@@ -16,6 +16,7 @@ angular.module('multibeamApp').controller('GridResultsCtrl', ['$scope', 'reposit
       {
         displayName: 'Survey',
         field: 'SURVEY_NAME',
+        cellTemplate: '<a href="{{ row.entity.DOWNLOAD_URL }}">{{ COL_FIELD }}</a>'
       },      
       {
         displayName: 'Scientist(s)',
